@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  --color-geo-teal: #146C72;
+  --color-geo-orange: #F7941D;
+  --color-geo-orange-dark: #F36F21;
+  --color-geo-green: #2E7D32;
+  --color-geo-gray: #F4F6F7;
+    --animate-bounce-slow: bounce-slow 3s infinite;
+
+  @keyframes bounce-slow {
+    0%, 100% {
+      transform: translateY(-5%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+      transform: translateY(0);
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
+}
