@@ -250,7 +250,7 @@ export default function Statistik() {
               </button>
             </div>
             <p className="text-sm font-medium text-gray-400 mt-8 bg-gray-50 inline-block px-4 py-2 rounded-lg">
-              *Data tidak mengandung informasi identitas pribadi (PII) responden.
+              *Data tidak mengandung informasi identitas pribadi (PII) responden..
             </p>
           </div>
         </div>
