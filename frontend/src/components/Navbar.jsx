@@ -13,13 +13,13 @@ export default function Navbar() {
   return (
     <nav className="bg-geo-teal text-white shadow-md relative z-50">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        
+
         {/* Logo / Brand */}
         <Link to="/" className="text-2xl font-bold text-geo-orange flex items-center gap-3" onClick={closeMenu}>
-          <img 
-            src={logoImg} 
-            alt="Logo NgobrolGeo" 
-            className="h-10 w-auto rounded-full bg-white object-cover" 
+          <img
+            src={logoImg}
+            alt="Logo NgobrolGeo"
+            className="h-10 w-auto rounded-full bg-white object-cover"
           />
           <span className="hidden sm:block">NgobrolGeo</span>
         </Link>
@@ -32,10 +32,10 @@ export default function Navbar() {
             <Link to="/statistik" className="hover:text-geo-orange transition-colors">Statistik</Link>
             <Link to="/kontak" className="hover:text-geo-orange transition-colors">Kontak</Link>
           </div>
-          
+
           {/* Tombol CTA Desktop */}
-          <Link 
-            to="/survey" 
+          <Link
+            to="/survey"
             className="bg-geo-orange hover:bg-geo-orange-dark text-white px-6 py-2.5 rounded-full font-bold transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
           >
             Isi Survei
@@ -44,8 +44,8 @@ export default function Navbar() {
 
         {/* --- TAMPILAN MOBILE (TOMBOL HAMBURGER) --- */}
         <div className="md:hidden flex items-center">
-          <button 
-            onClick={() => setIsOpen(!isOpen)} 
+          <button
+            onClick={() => setIsOpen(!isOpen)}
             className="text-white hover:text-geo-orange transition-colors focus:outline-none"
           >
             {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -62,10 +62,10 @@ export default function Navbar() {
             <Link to="/tentang" onClick={closeMenu} className="hover:text-geo-orange transition-colors py-2">Tentang</Link>
             <Link to="/statistik" onClick={closeMenu} className="hover:text-geo-orange transition-colors py-2">Statistik</Link>
             <Link to="/kontak" onClick={closeMenu} className="hover:text-geo-orange transition-colors py-2">Kontak</Link>
-            
+
             {/* Tombol CTA Mobile */}
-            <Link 
-              to="/survey" 
+            <Link
+              to="/survey"
               onClick={closeMenu}
               className="bg-geo-orange hover:bg-geo-orange-dark text-white px-5 py-3 rounded-xl font-bold transition-colors mt-4 shadow-md inline-block"
             >
