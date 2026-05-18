@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Loader2, Menu } from 'lucide-react';
 import Swal from 'sweetalert2';
 import Sidebar, { MENU_ITEMS } from '../../components/Sidebar';
+import RegressionAnalysis from './RegressionAnalysis';
 import SkorAgregat from './SkorAgregat';
-import UjiValiditas from './UjiValiditas'; // <-- Modul baru
+import UjiValiditas from './UjiValiditas';
+import AssumptionsAnalysis from './AssumptionsAnalysis'; // <-- Import Modul Uji Asumsi
 
 export default function Dashboard() {
     const [stats, setStats] = useState({ totalRespondents: 0, meanY: 0, data: [] });
@@ -21,7 +23,7 @@ export default function Dashboard() {
             if (!response.ok) throw new Error('Gagal mengambil data dari server');
             const result = await response.json();
 
-            // Konversi string ke angka agar aman untuk .toFixed()
+            // Konversi nilai string ke tipe Number agar aman dari kompilasi .toFixed()
             const cleanData = {
                 totalRespondents: result.totalRespondents || 0,
                 meanY: Number(result.meanY || 0),
@@ -38,7 +40,7 @@ export default function Dashboard() {
             setStats(cleanData);
         } catch (error) {
             Swal.fire('Error!', error.message, 'error');
-            // Mock data fallback
+            // Mock data fallback aman
             setStats({
                 totalRespondents: 1,
                 meanY: 5.00,
@@ -61,10 +63,13 @@ export default function Dashboard() {
     return (
         <div className="flex h-screen bg-[#f0f2f5] font-sans overflow-hidden">
 
+            {/* KOMPONEN MODULAR SIDEBAR */}
             <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
+            {/* AREA KONTEN UTAMA */}
             <main className="flex-1 flex flex-col h-screen overflow-hidden">
 
+                {/* HEADER DASHBOARD */}
                 <header className="h-20 bg-white border-b border-gray-100 flex items-center justify-between px-6 z-10 shrink-0">
                     <div className="flex items-center gap-4">
                         <button className="md:hidden text-gray-500" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
@@ -88,8 +93,10 @@ export default function Dashboard() {
                     </div>
                 </header>
 
+                {/* CONTAINER SCROLLABLE */}
                 <div className="flex-1 overflow-y-auto p-4 md:p-6">
 
+                    {/* GLOBAL STAT CARDS */}
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                         <div className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 text-center">
                             <h3 className="text-3xl font-black text-[#0f4c75]">{stats.totalRespondents}</h3>
@@ -107,15 +114,16 @@ export default function Dashboard() {
                             <p className="text-[10px] md:text-xs text-green-600 mt-1 bg-green-50 rounded-full inline-block px-2">Valid</p>
                         </div>
                         <div className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 text-center">
-                            <h3 className="text-3xl font-black text-[#0f4c75]">4</h3>
+                            <h3 className="text-3xl font-black text-[#0f4c75]">6</h3>
                             <p className="text-xs md:text-sm text-gray-500 mt-1 font-bold">Variabel Independen</p>
-                            <p className="text-[10px] md:text-xs text-gray-400 mt-1">X1, X2, X3, X4</p>
+                            <p className="text-[10px] md:text-xs text-gray-400 mt-1">X1 sampai X6</p>
                         </div>
                     </div>
 
+                    {/* AREA SWITCH VIEW DYNAMIC TAB */}
                     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 min-h-[400px]">
 
-                        {/* KONTEN 1: DATA MENTAH */}
+                        {/* TAB 1: DATA MENTAH */}
                         {activeTab === 'raw' && (
                             <div className="p-6">
                                 <div className="mb-6 flex justify-between items-center">
@@ -166,30 +174,39 @@ export default function Dashboard() {
                             </div>
                         )}
 
-                        {/* KONTEN 2: SKOR AGREGAT */}
+                        {/* TAB 2: SKOR AGREGAT */}
                         {activeTab === 'skor' && (
                             <SkorAgregat rawData={stats.data} />
                         )}
 
-                        {/* KONTEN 3: UJI VALIDITAS */}
+                        {/* TAB 3: UJI VALIDITAS */}
                         {activeTab === 'validitas' && (
                             <UjiValiditas />
                         )}
 
-                        {/* KONTEN 4-6: TAB LAINNYA (Placeholder yang sudah diperbaiki agar tidak crash) */}
-                        {['asumsi', 'regresi', 'export'].includes(activeTab) && (() => {
+                        {/* TAB 4: UJI ASUMSI KLASIK */}
+                        {activeTab === 'asumsi' && (
+                            <AssumptionsAnalysis />
+                        )}
+
+                        {/* TAB 5: ANALISIS REGRESI BERGANDA */}
+                        {activeTab === 'regresi' && (
+                            <RegressionAnalysis />
+                        )}
+
+                        {/* TAB 6: EXPORT DATA ONLY */}
+                        {['export'].includes(activeTab) && (() => {
                             const activeItem = MENU_ITEMS.find(t => t.id === activeTab);
                             const ActiveIcon = activeItem?.icon;
 
                             return (
                                 <div className="flex flex-col items-center justify-center py-24 text-center">
                                     <div className="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center mb-6 text-[#0f4c75] shadow-inner">
-                                        {/* Render Icon sebagai komponen React, bukan fungsi */}
                                         {ActiveIcon && <ActiveIcon size={48} />}
                                     </div>
                                     <h2 className="text-2xl font-bold text-gray-800 mb-3">Modul {activeItem?.label}</h2>
                                     <p className="text-gray-500 max-w-md">
-                                        Area ini sudah siap untuk dihubungkan dengan perhitungan lanjutan dari Backend Express Anda.
+                                        Area ini siap dikembangkan untuk melakukan integrasi ekspor dataset CSV/Excel secara global.
                                     </p>
                                 </div>
                             );

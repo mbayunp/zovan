@@ -5,6 +5,7 @@ const cors = require('cors');
 const surveyRoutes = require('./routes/surveyRoutes');
 const authRoutes = require('./routes/authRoutes');
 const statsRoutes = require('./routes/statsRoutes');
+const analysisRoutes = require('./routes/analysisRoutes');
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(express.json()); // Agar bisa membaca body request format JSON
 app.use('/api/survey', surveyRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/stats', statsRoutes);
+app.use('/api/analysis', analysisRoutes);
 
 // Route dasar untuk mengecek apakah API hidup
 app.get('/', (req, res) => {
