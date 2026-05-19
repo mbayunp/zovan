@@ -5,7 +5,8 @@ import Sidebar, { MENU_ITEMS } from '../../components/Sidebar';
 import RegressionAnalysis from './RegressionAnalysis';
 import SkorAgregat from './SkorAgregat';
 import UjiValiditas from './UjiValiditas';
-import AssumptionsAnalysis from './AssumptionsAnalysis'; // <-- Import Modul Uji Asumsi
+import AssumptionsAnalysis from './AssumptionsAnalysis';
+import ExportData from './ExportData';
 
 export default function Dashboard() {
     const [stats, setStats] = useState({ totalRespondents: 0, meanY: 0, data: [] });
@@ -195,22 +196,9 @@ export default function Dashboard() {
                         )}
 
                         {/* TAB 6: EXPORT DATA ONLY */}
-                        {['export'].includes(activeTab) && (() => {
-                            const activeItem = MENU_ITEMS.find(t => t.id === activeTab);
-                            const ActiveIcon = activeItem?.icon;
-
-                            return (
-                                <div className="flex flex-col items-center justify-center py-24 text-center">
-                                    <div className="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center mb-6 text-[#0f4c75] shadow-inner">
-                                        {ActiveIcon && <ActiveIcon size={48} />}
-                                    </div>
-                                    <h2 className="text-2xl font-bold text-gray-800 mb-3">Modul {activeItem?.label}</h2>
-                                    <p className="text-gray-500 max-w-md">
-                                        Area ini siap dikembangkan untuk melakukan integrasi ekspor dataset CSV/Excel secara global.
-                                    </p>
-                                </div>
-                            );
-                        })()}
+                        {activeTab === 'export' && (
+                            <ExportData />
+                        )}
 
                     </div>
                 </div>

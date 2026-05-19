@@ -6,6 +6,7 @@ const surveyRoutes = require('./routes/surveyRoutes');
 const authRoutes = require('./routes/authRoutes');
 const statsRoutes = require('./routes/statsRoutes');
 const analysisRoutes = require('./routes/analysisRoutes');
+const exportRoutes = require('./routes/exportRoutes');
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use('/api/survey', surveyRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/stats', statsRoutes);
 app.use('/api/analysis', analysisRoutes);
+app.use('/api/export', exportRoutes);
 
 // Route dasar untuk mengecek apakah API hidup
 app.get('/', (req, res) => {
